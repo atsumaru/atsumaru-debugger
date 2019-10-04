@@ -1,0 +1,41 @@
+{
+  "name": "atsumaru-debugger",
+  "version": "1.0.0",
+  "main": "build/main.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "clean": "rimraf build 'atsumaru-debugger-*'",
+    "build:js": "tsc -p .",
+    "build:icon": "cpy src/icon.png build/icon.png",
+    "build:icns": "png2icns src/icon.png -o build/icon.icns -s 16,32,64,128,256,512",
+    "start": "run-s clean build:js \"start:electron {1}\" --",
+    "start:electron": "electron .",
+    "package": "run-s package:win",
+    "package:win": "run-s clean build:js build:icon packager:win zip:win",
+    "package:mac": "run-s clean build:js build:icon build:icns packager:mac zip:mac",
+    "packager:win": "electron-packager . atsumaru-debugger --ignore='^/atsumaru-debugger.*' --ignore='^/src/.*' --platform=win32 --arch=x64 --electron-version=4.0.8 --overwrite",
+    "packager:mac": "electron-packager . atsumaru-debugger --icon=build/icon.icns --ignore='^/atsumaru-debugger.*' --ignore='^/src/.*' --platform=darwin --arch=x64 --electron-version=4.0.8 --overwrite",
+    "zip:win": "bestzip atsumaru-debugger-win32-x64.zip './atsumaru-debugger-win32-x64/*'",
+    "zip:mac": "electron-installer-zip './atsumaru-debugger-darwin-x64/*' atsumaru-debugger-darwin-x64.zip"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "@types/http-proxy": "^1.16.2",
+    "@types/send": "^0.14.4",
+    "bestzip": "2.1.2",
+    "cpy-cli": "2.0.0",
+    "electron": "^4.0.7",
+    "electron-installer-zip": "0.1.2",
+    "electron-packager": "^12.2.0",
+    "npm-run-all": "4.1.5",
+    "png2icns": "0.0.1",
+    "rimraf": "2.6.3",
+    "typescript": "^3.1.6"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "http-proxy": "^1.17.0",
+    "send": "^0.16.2"
+  }
+}
