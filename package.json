@@ -23,7 +23,7 @@
     "@types/express": "^4.16.0",
     "@types/http-proxy": "^1.16.2",
     "@types/send": "^0.14.4",
-    "bestzip": "2.1.2",
+    "bestzip": "2.1.7",
     "cpy-cli": "2.0.0",
     "electron": "^4.0.7",
     "electron-installer-zip": "0.1.2",
