@@ -148,5 +148,12 @@ app.on('ready', async () => {
         });
     });
 
+    // ResProxyに対しても必要なCookieが転記されるようにする
+    mainWindow.webContents.session.cookies.on("changed", (_, cookie) => {
+        if (cookie.domain !== "localhost" && cookie.path && cookie.path.indexOf("/games/") === 0) {
+            mainWindow.webContents.session.cookies.set({ ...cookie, domain: "localhost", url: baseUrl }, _ => {});
+        }
+    });
+
     mainWindow.loadURL(myPageUrl);
 });
