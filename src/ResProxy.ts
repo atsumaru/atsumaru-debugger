@@ -9,7 +9,10 @@ import httpProxy from "http-proxy";
 
 import {config} from "./config";
 
-const atsumaruJSHTML = "<script type=\"text/javascript\" src=\"/core/player/js/rpgatsumaru.js\"></script>";
+const atsumaruJSHTML = `
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; object-src 'none'; script-src 'self' 'unsafe-eval' 'unsafe-inline' data: blob:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' data: blob:; form-action 'none'; child-src 'self' data: blob:; frame-src 'none'">
+<script>parent.connectAtsumaru(window);</script>
+`;
 
 export class ResProxy {
     private _app: express.Application;
@@ -73,7 +76,7 @@ export class ResProxy {
         }
         if (m[1] === "index.html") {
             let indexHtml = await new Promise<string>((resolve, reject) => {
-                // index.htmlはatsumaru.jsを仕込む必要がある
+                // index.htmlはjsを仕込む必要がある
                 readFile(path.join(this._localLocation!, "index.html"), { encoding: "utf-8" }, (err, data) => {
                     if (err) {
                         return reject(err);

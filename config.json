@@ -1,6 +1,6 @@
 {
   "atsumaruBaseUrl": "https://game.nicovideo.jp",
-  "atsumaruResBaseUrl": "https://html5.nicogame.jp",
+  "atsumaruResBaseUrl": "https://resource.game.nicovideo.jp",
   "atsumaruHostName": "game.nicovideo.jp",
   "accountHostName": "account.nicovideo.jp"
 }
